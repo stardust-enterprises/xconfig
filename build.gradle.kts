@@ -1,32 +1,13 @@
+import org.quiltmc.gradle.licenser.extension.QuiltLicenserGradleExtension
+
 plugins {
-    `java-library`
-    `maven-publish`
-    signing
+    id("org.quiltmc.gradle.licenser") version "2.+" apply false
 }
 
-group = "enterprises.stardust"
-version = "1.0-SNAPSHOT"
+allprojects {
+    apply(plugin = "org.quiltmc.gradle.licenser")
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
-}
-
-java {
-    withSourcesJar()
-    withJavadocJar()
-
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
-    }
-}
-
-tasks {
-    getByName<Test>("test") {
-        useJUnitPlatform()
+    extensions.configure<QuiltLicenserGradleExtension>("license") {
+        rule(rootProject.projectDir.resolve("codeformat").resolve("HEADER"))
     }
 }

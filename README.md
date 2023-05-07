@@ -4,26 +4,26 @@
 
 ## What is xconfig?
 
-`xconfig` or `crossconfig` is a universal configuration standard for the [JVM] and [JVM]-based programming languages. 
+`xconfig`, `crossconfig`, or `xcfg4j` is a universal configuration standard for the [JVM] and [JVM]-based programming languages. 
 It is designed to be simple yet expandable, easy to use, and easy to implement.
 
 ## How does it work?
 
 `xconfig` is divided into three moving parts:
-- The **frontend**
+- The [**frontend**](frontend/README.md)
   - A **user**-intractable part that allows for configuration modification
   - Examples:
     - A command-line interface
     - A graphical interface
     - A text editor
 <br><br>
-- The **backend**
+- The [**backend**](backend/README.md)
   - A **programmatic** interface that specifies I/O operations and configuration storage
   - Examples:
     - A file-based backend (using a file format such as JSON, YAML, XML, etc...)
     - A database-based backend (using a database such as MySQL, MangoDB, etc...)
 <br><br>
-- The **middle-end**
+- The [**middle-end**](middle-end/README.md)
   - A **programmer chosen** approach to configuration declaration and validation
   - Examples:
     - A functional declaration 

@@ -1,0 +1,3 @@
+plugins {
+    `xconfig-build-logic`
+}
