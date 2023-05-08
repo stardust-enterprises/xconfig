@@ -5,3 +5,4 @@ arrayOf(
     "middle-end",
     "backend",
 ).forEach { include(it) }
+include("shared")

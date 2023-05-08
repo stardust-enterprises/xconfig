@@ -12,11 +12,15 @@ repositories {
 }
 
 dependencies {
+    val api by configurations
+    if (project.name != "shared") {
+        api(project(":shared"))
+    }
+
     val testImplementation by configurations
     val testRuntimeOnly by configurations
-
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.+")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.+")
 }
 
 extensions.apply {
@@ -30,6 +34,38 @@ extensions.apply {
 
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(8))
+        }
+    }
+
+    configure<PublishingExtension>("publishing") {
+        publications {
+            create<MavenPublication>("mavenJava") {
+                from(components["java"])
+
+                groupId = "enterprises.stardust"
+                artifactId = rootProject.name + "-" + project.name
+                version = project.version.toString()
+
+                pom {
+                    name.set(rootProject.name + "-" + project.name)
+                    url.set("https://github.com/stardust-enterprises/xconfig")
+
+                    licenses {
+                        license {
+                            name.set("GNU Lesser General Public License, Version 3")
+                            url.set("http://www.gnu.org/licenses/lgpl-3.0.txt")
+                            distribution.set("repo")
+                        }
+                    }
+                    developers {
+                        developer {
+                            id.set("xtrm")
+                            name.set("xtrm")
+                            email.set("oss@xtrm.me")
+                        }
+                    }
+                }
+            }
         }
     }
 }
