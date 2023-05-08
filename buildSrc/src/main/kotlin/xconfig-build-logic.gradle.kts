@@ -17,6 +17,9 @@ dependencies {
         api(project(":shared"))
     }
 
+    val implementation by configurations
+    implementation("org.jetbrains:annotations:24.0.1")
+
     val testImplementation by configurations
     val testRuntimeOnly by configurations
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.+")

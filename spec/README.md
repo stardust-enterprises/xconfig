@@ -42,4 +42,10 @@ interface and be exposed via the Java [ServiceLoader API](https://docs.oracle.co
 The middle-end is the part of the configuration that is programmer-interactable. It is the part that allows for configuration declaration and (sometimes) validation.
 
 A middle-end service can be seen as a collection of middle serializers, paired with frontend-facing instructions, such as rendering styles or dependency information.
+                                    
+**writing note**: This means that color can = 3 ints basically
+
+### Middle-end flow
+
+The middle-end service will provide proxy methods to the backend service(s) for easier access for developers.
 

@@ -18,6 +18,13 @@
 
 package enterprises.stardust.xconfig.frontend;
 
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Iterator;
+import java.util.ServiceLoader;
+
 /**
  * Defines the basic functionality for a xconfig frontend service.
  * <p>
@@ -36,4 +43,36 @@ package enterprises.stardust.xconfig.frontend;
  * @since 0.0.1
  */
 public interface Frontend {
+    @ApiStatus.Experimental
+    void ensureDisplayed();
+
+    static @NotNull Frontend get() {
+        return FrontendProvider.getMainFrontend();
+    }
+}
+
+/**
+ * @author xtrm
+ * @since 0.0.1
+ */
+final class FrontendProvider {
+    private static final ServiceLoader<Frontend> FRONTEND_LOADER =
+        ServiceLoader.load(Frontend.class);
+
+    private static @Nullable Frontend MAIN_FRONTEND;
+
+    static Frontend getMainFrontend() {
+        if (MAIN_FRONTEND == null) {
+            FRONTEND_LOADER.reload();
+
+            Iterator<Frontend> iterator = FRONTEND_LOADER.iterator();
+            if (iterator.hasNext()) {
+                MAIN_FRONTEND = iterator.next();
+            } else {
+                throw new IllegalStateException("No frontend service found. " +
+                    "Please provide a frontend service.");
+            }
+        }
+        return MAIN_FRONTEND;
+    }
 }
