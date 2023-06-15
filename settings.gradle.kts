@@ -1,8 +1,4 @@
 rootProject.name = "xconfig"
 
-arrayOf(
-    "frontend",
-    "middle-end",
-    "backend",
-).forEach { include(it) }
-include("shared")
+rootDir.list { _, name -> name.startsWith("xconfig-")}
+    ?.forEach { include(":$it") }

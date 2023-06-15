@@ -2,11 +2,7 @@ import org.quiltmc.gradle.licenser.extension.QuiltLicenserGradleExtension
 
 plugins {
     id("org.quiltmc.gradle.licenser") version "2.+" apply false
-    java
-}
-
-sourceSets {
-
+    signing
 }
 
 allprojects {
@@ -16,3 +12,5 @@ allprojects {
         rule(rootProject.projectDir.resolve("codeformat").resolve("HEADER"))
     }
 }
+
+signing
